@@ -1,5 +1,4 @@
-# Term-Similarity-based-on-Semantic-Network-Probase-
-# ShortTextStreamClassification
+# Term-Similarity-based-on-Semantic-Network-Probase
 
 					 
 <DIV id="contentArea">
