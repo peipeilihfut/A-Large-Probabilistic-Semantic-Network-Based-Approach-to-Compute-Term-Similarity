@@ -131,6 +131,19 @@ with the computed similarity scores by the RCP approach. Due to the space limit,
 <TR><TD ALIGN="center" >27</TD><TD ALIGN="center" >rooster</TD><TD ALIGN="center" >voyage</TD><TD ALIGN="center" >0.08</TD><TD ALIGN="center" >0.0000</TD></TR>
 <TR><TD ALIGN="center" >28</TD><TD ALIGN="center" >lad</TD><TD ALIGN="center" >wizard</TD><TD ALIGN="center" >0.42</TD><TD ALIGN="center" >0.0000</TD></TR>
 </TBODY></TABLE></P>
+	 <div style="clear:both;"></div>
+        <div class="conM "><H2>Complete Set of Results: Download</H2>
+<P>More Details Refer to <A href="http://adapt.seiee.sjtu.edu.cn/similarity/SimCompleteResults.pdf" target=_new onClick="stc(this, 26)"> Complete Results on Three Data Sets</A>.</P></div>
+        <div style="clear:both;"></div>
+<div class="conM "><H2>References</H2>
+<P>[1] A. Budanitsky and G. Hirst. Evaluating wordnet-based measures of lexical semantic relatedness. Computational Linguistics, 32:13-47,2006.</P>
+<P>[2] W. Wu, H. Li, H. Wang, and K. Q. Zhu. Probase: a probabilistic taxonomy for text understanding. In Proceedings of SIGMOD'12, pages 481-492, 2012.</P>
+<P>[3] H. Rubenstein and J. B. Goodenough. Contextual correlates of synonymy. Communications of the ACM, 8(10):627-633, 1965.</P>
+<P>[4] E. Agirre, A. Soroa, E. Alfonseca, K. Hall, J. Kravalova, and M. Pasca. A study on similarity and relatedness using distributional and wordnet-based approaches. In Proceedings of NAACL’09, pages19–27, 2009.</P>
+</div>
+        <div class="conM "><H2>Contact</H2>
+<P>Peipei Li(peipeili@hfut.edu.cn): Hefei University of Technology<BR><A style="ZOOM: 1" title="" href="/en-us/people/haixunw/" target=_new alt onClick="stc(this, 30)">Haixun Wang</A> (haixunw@gmail.com): Microsoft Research Asia<BR><A style="ZOOM: 1" title="" href="http://www.cs.sjtu.edu.cn/~kzhu/" target=_new alt onClick="stc(this, 29)">Kenny Q. Zhu</A> (kzhu@cs.sjtu.edu.cn): Shanghai Jiao Tong University<BR><A href="/en-us/people/zhowang/" target=_new onClick="stc(this, 28)">Zhongyuan Wang</A> (zhy.wang@microsoft.com): Microsoft Research Asia<BR><A style="ZOOM: 1" title="" href="http://www.cs.uvm.edu/~xwu/home.html" target=_new alt onClick="stc(this, 30)">Xindong Wu</A> (xwu@louisiana.edu ): University of Louisiana at Lafayette</P>
+
  </BODY></HTML>
  
 
