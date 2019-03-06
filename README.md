@@ -10,295 +10,127 @@
 <DIV class="cl"></DIV></DIV>
 <DIV class="conM ">
 <P>&nbsp;</P>
-<P>Short text stream classification is a very challenging
-and significant task due to the characteristics of short
-length, weak signal, high velocity and especial topic drift
-in short text stream. However, this challenge has received
-little attention from the research community. Motivated by
-this, we propose a new feature extension approach for short
-text stream classification using a large scale, general purpose
-semantic network obtained from a web corpus. Our approach
-is built on an incremental ensemble classification model. First,
-in terms of the open semantic network, we introduce more
-semantic contexts in short texts to make up of the data sparsity.
-Meanwhile, we disambiguate terms by their semantics to
-reduce the noisy impact. Second, to effectively track the hidden
-topic drifts, we propose a concept cluster based topic drifting
-detection method. Finally, extensive experiments demonstrate
-our approach can detect topic drifts effectively compared to
-several well-known concept drifting detection methods in data
-stream. Meanwhile, our approach can perform best in the
-classification of text data stream compared to several stateof-
-the-art short text classification approaches.</P>
+<P>The goal of <B>our semantic similarity measurement approach</B> is to accuratly compute the semantic similarity between terms, including single words and multi-word expressions.</P>
 <H2>Introduction</H2>
-<P>Short texts are prevalent on the Web, such as search
-snippets and tweets. Unlike traditional normal texts such as
-news articles, short texts refer to the length of the shorter
-text form. For example, a tweet has a 140 character limit.
-In recent years, these short texts swept the world at an
-alarming rate, and have produced a large quantity of data
-stream. We call them as short text streams. However, short
-text stream classification is a very challenging task, owing
-to the fact that these data have inherent defects such as short
-length, weak signal and high ambiguity for each short text,
-meanwhile, because of the explosive growth and popularity
-of short textual content.</P>
-<P>Given the characteristics of these short text streams, there
-are several challenges with applying the traditional text
-classification [1] to build models. This is because first, each
-short text does not contain enough statistical signals to make
-the analysis meaningful. Second, the limited contexts make
-it more difficult to identify the senses of ambiguous words in
-each short text. Third, they present the characteristics of data
-streams as being continuous, high-volume, open-ended and
-topic drifting in short texts. Meanwhile, existing short text classification approaches rarely focus on the characteristics
-of data stream. It is hence a challenge for them in the
-tackling of short text stream classification. To handle of the
-short text classification, existing approaches mainly follow
-two directions to enrich the short text. The first one is to
-extend the feature space only using the rules or statistical
-information hidden in the current short text contexts [2],
-called the self-resource based approach. While the other is
-to extend the feature space by external sources, called the
-external resource based approach, and it can be divided into
-four categories[3], [4], including link based approach [5],
-Web search based approach [6], taxonomy based approach
-[7] and topic based approach [8].</P>
-<H2>Our Approach</H2>
-<P>However, all of the aforementioned approaches are batch
-algorithms, they are hence not suitable for short text stream
-classification especially in the cases with topic drifts. Thus,
-we propose a new feature extension approach for short text
-stream classification using a large scale, general purpose
-semantic network obtained from a web corpus. Our contributions
-are as follows.</P>
+<P>Measuring semantic similarity between terms is a fundamental problem in lexical semantics [1] and it finds many
+applications in web and document search, question and answer systems, and other text analytics and text understanding scenarios. By terms, we mean either single words or
+multi-word expressions (MWEs). We say two terms are semantically similar, if their meanings are close, or the concept or object that they represent share many common attributes. For example, "emerging markets" and "developing countries" are similar because their semantic contents
+(the subset of countries) are very similar. Another example,
+"Google" and "Microsoft" are similar because they are both
+software companies. However, "car" and "journey" are not
+semantically similar but related because "car" is a transport
+means for the activity "journey". Specifically, semantic similarity is defined by some measure of distance between two
+terms on an isA taxonomy. It is clear that "car" and "journey" are quite far away from each other in an isA taxonomy
+from WordNet as shown in Figure 1. Semantic similarity is a
+more specific relationship and is much harder to model than
+relatedness (which can be modeled by term co-occurrence).</P>
+<P>Currently, there are two main approaches for this
+task, namely the knowledge based and the corpus based
+approaches. However, these approaches are more suitable
+for measuring semantic similarity between two words rather
+than the more general multi-word expressions (MWEs), and
+scalability issues from manual tagging as well as corpora dependency
+and availability also limit their applicability.</P>
+<H2>Our Semantic Similarity Calculation Approach</H2>
+<P>Contrary
+to these existing techniques, we propose a lightweight
+and effective approach (called RCP) for semantic similarity using a large
+scale semantic network automatically acquired from billions
+of web documents. The semantic network consists of millions
+of concepts, which explicitly model the context of semantic
+relationships. Given two terms, we map them into the
+concept space, and compare their similarity in that space.
+Furthermore, we introduce a clustering approach to orthogonalize
+the concept space in order to improve the accuracy of
+the similarity measure. 
 <P>The main contributions of this paper are:</P>
-<P>First, our approach produces higher
-classification accuracy. We use an open semantic network
-called Probase1 instead of other popular taxonomy knowledgebases
-(such as Wikipedia) as the external resources. In
-terms of the taxonomy in Probase, our approach introduces
-more semantic contexts hidden in short texts to make up
-of the data sparsity. Meanwhile, our approach seeks to
-disambiguate terms in short texts and thus excludes noises
-from irrelevant senses of terms. It is conducive to improve
-the classification accuracy.</P>
-<P>Second, our approach can detect
-the topic drifts effectively. Contrary to the classificationerror
-based concept drifting method, we use the concept
-clusters of terms to represent the data distributions of each
-chunk, and then compute the distance between concept
-clusters to detect the topic drifts hidden in short text streams.</P>
-<H2>Data Set </H2>
-<P><A herf= "http://jwebpro.sourceforge.net/data-web-snippets.tar.gz" >Web Search Snippets</A>: Search snippets consists of three
-parts: a URL, a short title and a short text description. The
-search snippets were selected from the results of web search
-transaction using predefined phrases of different domains.
-There are eight categories with 12340 records.</P>
-<P><A herf= "http://acube.di.unipi.it/tmn-dataset/" >News</A>:News is a dataset of 32K english news extracted from RSS
-feeds of popular newspaper websites. It has seven categories.
-Each news in the file has the structure of title, description
-and category. We only extract titles as the data set here.</P>
-
-<H2>Experiment Results</H2>
-<P>Table 1 shows the benchmark data sets used in our experiments. 
-<!--Due to the space limit, other experimental results are not shown here, you can get details from Download.-->
+<P>
+1. Our approach has better coverage. The semantic network
+behind this approach is one order of magnitude
+larger than WordNet in terms of the number of hypernym-
+hyponym relations. Unlike existing methods based
+on WordNet which only measure the similarity between
+limited number of words, our approach enables
+the similarity computation between almost any two
+known noun-based MWEs. This is because the knowledge
+source [2] behind this approach is harnessed from
+billions of web documents.</P>
+<P>
+2. Our approach produces more meaningful similarity. Unlike
+corpus-based methods which can confuse similarity
+with relatedness, this approach calculates similarity
+by relations induced from an isA semantic network. It
+also seeks to disambiguate terms with multiple meanings
+before calculating similarity and thus excludes
+noises from irrelevant senses from the probability distributions.
+As a result, the similarity results are more
+relevant and reliable.</P>
+<P>
+3. Our approach is lightweight. The most computational
+intensive part of the algorithm is clustering which can
+be performed online. The remaining similarity function
+can be efficiently computed online. In particular,
+given a pair of terms, on average, it takes merely 65
+milliseconds to compute its similarity.
 </P>
-<P align="center"><B>Table 1: DATA SETS USED IN THE EXPERIMENTS</B></P>
+<P>Extensive studies demonstrate that our approach can
+accurately compute the semantic similarity between terms
+with MWEs and ambiguity, and significantly outperforms
+12 competing methods.</P>
+<H2>Three Benchmark Data Sets </H2>
+<P>We use three data sets in the following experiments, 
+	including two well-known benchmark data sets for word similarity and one labeled 
+	data set for evaluating MWEs which is created by us. M&C data set is a subset of Rubenstein-Goodenough's [3] 
+	and consists of 30 word pairs. Because of the omission of two word pairs in earlier versions of WordNet, 
+	most researchers used only 28 word pairs for evaluations in the past. We follow this tradition in this 
+	paper. WordSim203 is a subset from WordSim353,and has been used as a similarity testing data set by Agirre
+et. al.[4] It contains 203 pairs which are considered more similar than related, where similar pairs include 
+	those classiffied as synonyms, antonyms, identical, or hyponym-hypernym, and unrelated pairs indicate 
+	those classiffied as none-of-the-above that had average similarity less than or equal to 0.5 (on a scale 
+	of 0 to 1). Because there are no benchmark data for the semantic similarity between MWEs, we labeled 300 
+	pairs (known as WP) with both words and MWEs. Our labeled data consist of three categories: 100 
+	concept-entity pairs, 100 concept-concept pairs and 100 entity-entity pairs. These 300 pairs contain 
+	84 word pairs and 216 MWE pairs, in which 71 MWE pairs can be identiffied by WordNet while 145 MWE 
+	pairs can not be identiffid by WordNet. Five native speakers of English labeled these pairs according 
+	to the label classes, and the labels are then translated into numerical similarity scores.</P>
+<H2>Experiment Results</H2>
+<P>Table 1 shows the experimental results on M&C data set along
+with the computed similarity scores by the RCP approach. Due to the space limit, experimental results on other two data sets are not shown here, you can get details from Download.
+</P>
+<P align=center><B>Table 1: Semantic Similarity Scores Computed by RCP Approach on the M&C Date Set (28 Pairs)</B></P>
 <P>
-<TABLE width="700" align="center" class=" borderColumns borderRows tableBorder" 
-cellSpacing="0" cellPadding="0">
-  <TBODY>
-  <TR>
-    <TD align="center"><B>domain</B></TD>
-    <TD align="center"><B>#documents</B></TD>
-    <TD align="center"><B>domain</B></TD>
-    <TD align="center"><B>#documents</B></TD>
-    </TR>
-  <TR>
-    <TD align="center" colspan="2">Web Search Snippets</TD>
-    <TD align="center"colspan="2">News</TD>
-</TD>
-</TR>
-<TR>
-    <TD align="center">Business</TD>
-    <TD align="center">1500</TD>
-    <TD align="center">Sport</TD>
-    <TD align="center">8190</TD>
-</TR>
-<TR>
-    <TD align="center">Computer</TD>
-    <TD align="center">1500</TD>
-    <TD align="center">Business</TD>
-    <TD align="center">5367</TD>
-</TR>
-<TR>
-    <TD align="center">Culture-Arts-Ent</TD>
-    <TD align="center">2210</TD>
-    <TD align="center">U.S.</TD>
-    <TD align="center">4783</TD>
-</TR>
-<TR>
-    <TD align="center">Education-Science</TD>
-    <TD align="center">2660</TD>
-    <TD align="center">Health</TD>
-    <TD align="center">1851</TD>
-</TR>
-<TR>
-    <TD align="center">Engineering</TD>
-    <TD align="center">370</TD>
-    <TD align="center">Sci&amp;Tech</TD>
-    <TD align="center">2872</TD>
-</TR>
-<TR>
-    <TD align="center">Politics-Scienty</TD>
-    <TD align="center">1500</TD>
-    <TD align="center">Entertainment</TD>
-    <TD align="center">3286</TD>
-</TR>
-<TR>
-    <TD align="center">Health</TD>
-    <TD align="center">1180</TD>
-    <TD align="center">World</TD>
-    <TD align="center">6255</TD>
-</TR>
-<TR>
-    <TD align="center">Sport</TD>
-    <TD align="center">1420</TD>
-    <TD align="center">/</TD>
-    <TD align="center">/</TD>
-</TR>
-<TR>
-    <TD align="center">total</TD>
-    <TD align="center">12340</TD>
-    <TD align="center">total</TD>
-    <TD align="center">32604</TD>
-</TR>
-  </TBODY></TABLE>
-<P></P>
-
-<DIV style="clear: both;"></DIV>
-<DIV class="conM ">
-<H2>Used Data Sets: Download</H2>
-<P>More Details Refer to <A onclick="stc(this, 26)" href="http://121.42.218.45/peipeili/Used-Data-Sets-and-demo.rar" 
-target="_new"> Used Data Sets</A>.</P></DIV>
-<DIV style="clear: both;"></DIV>
-<DIV class="conM ">
-<H2>Source codes: Download</H2>
-<P>More Details Refer to <A onclick="stc(this, 26)" href="http://121.42.218.45/peipeili/ShortTextClassification-src.rar" 
-target="_new"> Source codes</A>.</P></DIV>
-<DIV style="clear: both;"></DIV>
-<DIV class="conM ">
-<H2>References</H2>
-<P>[1] K. Nigam, A. McCallum, S. Thrun, and T. Mitchell, “Text
-classification from labeled and unlabeled documents using
-em,” Machine learning, vol. 39, no. 2, pp. 103–134, 2000.</P>
-<P>[2] X. Cheng, X. Yan, Y. Lan, and J. Guo, “Btm: Topic modeling
-over short texts,” IEEE Transactions on Knowledge and Data
-Engineering, vol. 26, pp. 2928–2941, 2014.</P>
-<P>[3] M. Chen, X. Jin, and D. Shen, “Short text classification improved
-by learning multi-granularity topics,” in Proceedings
-of IJCAI’11, 2011, pp. 1776–1781.</P>
-<P>[4] L. Gao, S. Zhou, and J. Guan, “Effectively classifying short
-texts by structured sparse representation with dictionary filtering,”
-Information Sciences, vol. 323, pp. 130–142, 2015.</P>
-<P>[5] X. Wang, Y. Wang, W. Zuo, and G. Cai, “Exploring social
-context for topic identification in short and noisy texts,” in
-AAAI’15, 2015, pp. 1868–1874.</P>
-<P>[6] D. Bollegala, Y. Matsuo, and M. Ishizuka, “A web search
-engine-based approach to measure semantic similarity between
-words,” IEEE TKDE, vol. 23, pp. 977–990, 2011.</P>
-<P>[7] M. SHIRAKAWA, K. NAKAYAMA, T. HARA, and
-S. NISHIO, “Wikipedia-based semantic similarity measurements
-for noisy short texts using extended naive bayes,” IEEE
-Transactions on Emerging Topics in Computing, vol. 3, pp.
-205–219, 2015.</P>
-<P>[8] X. Phan, C. Nguyen, D. Le, L. Nguyen, S. Horiguchi, and
-Q. Ha, “A hidden topic-based framework toward building
-applications with short web documents,” IEEE Transactions
-on Knowledge and Data Engineering, vol. 23, pp. 961–976,
-2011.</P>
-</DIV>
-<DIV class="conM ">
-<H2>Contact</H2>
-<P><A title="" style="zoom: 1;" onclick="stc(this, 30)" href="http://ci.hfut.edu.cn/index/teacherinfo/tid/522" 
-target="_new" alt="">Peipei Li</A> (peipeili@hfut.edu.cn): Hefei University of Technology<BR>
-<A title="" style="zoom: 1;" onclick="stc(this, 30)" href="http://haixun.olidu.com/" 
-target="_new" alt="">Lu He</A> (luhe@mail.hfut.edu.cn): Hefei University of Technology <BR><A title="" style="zoom: 1;" onclick="stc(this, 29)" 
-target="_new" alt="">Xuegang Hu</A> (jsjxhuxg@hfut.edu.cn): Hefei University of Technology<BR>
-<A title="" style="zoom: 1;" onclick="stc(this, 30)" href="http://ci.hfut.edu.cn/index/teacherinfo/tid/477" 
-target="_new" alt="">Yuhong Zhang</A> (zhangyuhong@hfut.edu.cn): Hefei University of Technology<BR>
-<A title="" style="zoom: 1;" onclick="stc(this, 30)" href="http://ci.hfut.edu.cn/index/teacherinfo/tid/521" 
-target="_new" alt="">Lei Li</A> (lilei@hfut.edu.cn): Hefei University of Technology<BR>
-<A title="" style="zoom: 1;" onclick="stc(this, 30)" href="http://www.ucs.louisiana.edu/~xxw8007/" 
-target="_new" alt="">Xindong Wu</A> (xwu@uvm.edu): University of Louisiana</P>
-<P class="smallText"></P>
-<P class="smallText">&nbsp;</P></DIV>
-<DIV style="clear: both;"></DIV></DIV>
-<DIV style="clear: left;"></DIV></DIV></DIV></DIV><!--NOINDEX_START-->					 
-<DIV class="cl"></DIV>
-<DIV class="bt" id="bGrad"></DIV></DIV></DIV>
- </DIV>
-
-<H2>How to use our source codes</H2>
-<P>1. The solution is built on Visual Studio 2010 C# plateform.</P>
-<P>2. The main function is in the project of LibSVMSharp.Examples.Classification</P>
-<P>
-Train using SVM classifier and implement the concept drifting detection, namely the function of TrainAndDriftDetectAndTest is called in the main function.
-All parameter settings are below. （You can use the default values in the parameter settings).</P>
-
-<P>/// Training by SVMClassifier over data chunks and concept drfiting detection</P>
-       <P> /// </summary> </P>
-       <P> /// <param name="thresOfWin">thresOfWin: the threshold of the size of window (data chunk), default: 0.5</param></P>
-       <P> /// <param name="parameter">parameter: the parameters of SVM training</param></P>
-       <P> /// <param name="modelMaxNum">modelMaxNum: the size limit of ensembling models</param></P>
-       <P> /// <param name="thresOfWin">thresOfWin: the threshold of window</param></P>
-      <P>  /// <param name="slidWinSize">sildWinSize: the size of the sliding window,default: 2000</param></P>
-       <P> /// <param name="maxW">maxW: the maximum size of the sliding window, default: 1000</param></P>
-       <P> /// <param name="minW">minW: the minmum size of the sliding window, default: 200</param></P>
-       <P> /// <param name="srcTextOfAllTerms">srcTextOfAllTerms: the directory of reading all terms including the dominant clusters for entities</param></P>
-        <P>/// <param name="srcTextOfDC">srcTextOfDC: the directory of reading the dominant clusters for entities</param></P>
-      <P> /// <param name="srcTextOfVSM">srcTextOfVSM: the directory of reading the feature space for classifier generation, the file can be "CVSM" or "WCVSM"</param></P>
-       <P> /// <param name="chunkSize">chunkSize: the chunk size in the concept drifting detecton</param></P>
-        <P>/// <param name="labelPos">labelPos: the postition of labels, default: 0 (at the begining) </param></P>
-        <P>/// <param name="basicAlg">basicAlg: the basic algorithm, default: "SVM" </param></P>
-       <P> /// <param name="fadingFactor">fadingFactor: the value of fading factor, eg., 0.995</param></P>
-       <P> /// <param name="estimatorType">estimatorType: prequential error estimator in sliding window/uing fading factor</param></P>
-       <P> /// <param name="serverName">serverName: the server name, default: "LPP-PC" </param></P>
-       <P> /// <param name="dataSrc">dataSrc: the database name, default: "corev52" </param></P>
-       <P> /// <param name="bUseSynonym">bUseSynonym: whether it uses the synonym data or not, default value: false </param></P>
-       <P> /// <returns></returns>
-		
-<P>3. in the folder of demo, we give an example to show how to run our executable file.</P>
-<P>the batch file:  F:\shortTextData\News\train+test\title\allData titleAll.ReOrgConcept200.termRecog-tfidf.VSMWithCluster titleAll.ReOrgConcept200.termRecog-tfidf.dominantCluster titleAll.ReOrgConcept200.termRecog-tfidf.SVSM 50 0 false 0.75 cosine KNN 1000 0.85 prequentialByFading 0</P>
-
-<H2>In order to run this batch file, you need the following prepared data:</H2>
-<P>(1) titleAll.ReOrgConcept200.termRecog-tfidf.VSMWithCluster </P>
-<P>(2) titleAll.ReOrgConcept200.termRecog-tfidf.dominantCluster</P>
-<P>(3) titleAll.ReOrgConcept200.termRecog-tfidf.SVSM</P>
-<H2>These data can be obtained by the funtions in the project of "ConceptualizationTerms"</H2>
-<P>a) step 1: term recognition, namely call the funtion RecognizeTerms() in the main function;</P>
-<P>b) step 2: generate vector space model for texts with term recognition, namely call the funtion GenVSM() in the main function;</P>
-<P>b) step 3: Disambiguation, namely call the funtion DisambiguateTerms() in the main function; </P>
-<P>More details refer to examples in the main function  of "ConceptualizationTerms" project.</P>
-
-<H2>In this batch file, description of input parameters is below:</H2>
-<P>string directory = args[0]; //the path directory: F:\shortTextData\News\train+test\title\allData</P>
-<P>string srcTextOfAllTerms = args[1]; // source data with term recognition</P>
-<P>string srcTextOfDC = args[2]; // source data with dominant senses</P>
-<P>string srcTextOfVSM = args[3]; //source data with vectorization using senses</P>
-<P>int chunkSize = Convert.ToInt32(args[4]);//data chunk, default '200'; </P>
-<P>int labelPos = Convert.ToInt32(args[5]);//the label position given the training data, default: at the beginig, namely '0';</P>
-<P>bool labelUnKnown = Convert.ToBoolean(args[6]);//whether the label is known or not, defualt: known, namely 'false', if unknown, use 'true' </P>
-<P>double thresInitCenter = Convert.ToDouble(args[7]);//the threshold used in the concept cluster based topic drifting detection, default: '0.5'</P>
-<P>string distEvalType = args[8];//the similarity function, default: cosine</P>
-<P>string basicAlg = args[9];//the prediction function, default: "KNN"</P>
-<P>Int64 slidWinSize = Convert.ToInt64(args[10]);//the window size</P>
-<P>double drifThres = Convert.ToDouble(args[11]);//the threshold used in the topic drifting detection, if the distance between clusters is larger than this threshold, drift is considered.</P>
-<P>string estimatorType = args[12]; //the type of topic drifting detection, using prequential prediction by sliding window or by fading factor</P>
-<P>double fadingFactor = 0;</P>
-<P>if (estimatorType == "prequentialByFading")//in the topic drifting detection, if you select the prequential test by fading factor, it is necessary to set the value of fading factor.</P>
-    fadingFactor = Convert.ToDouble(args[13]);</P>
+<TABLE class=" borderColumns borderRows tableBorder" cellSpacing=0 cellPadding=0 width=700 align=center>
+<TBODY>
+<TR><TD ALIGN="center" ><B>ID</B></TD><TD ALIGN="center" ><B>Term-A</B></TD><TD ALIGN="center" ><B>Term-B</B></TD><TD ALIGN="center" ><B>Human Rating</B></TD><TD ALIGN="center" ><B>Similarity Score</B></TD></TR>
+<TR><TD ALIGN="center" >1</TD><TD ALIGN="center" >car</TD><TD ALIGN="center" >automobile</TD><TD ALIGN="center" >3.92</TD><TD ALIGN="center" >1.0000</TD></TR>
+<TR><TD ALIGN="center" >2</TD><TD ALIGN="center" >gem</TD><TD ALIGN="center" >jewel</TD><TD ALIGN="center" >3.84</TD><TD ALIGN="center" >1.0000</TD></TR>
+<TR><TD ALIGN="center" >3</TD><TD ALIGN="center" >midday</TD><TD ALIGN="center" >noon</TD><TD ALIGN="center" >3.42</TD><TD ALIGN="center" >1.0000</TD></TR>
+<TR><TD ALIGN="center" >4</TD><TD ALIGN="center" >magician</TD><TD ALIGN="center" >wizard</TD><TD ALIGN="center" >3.5</TD><TD ALIGN="center" >1.0000</TD></TR>
+<TR><TD ALIGN="center" >5</TD><TD ALIGN="center" >furnace</TD><TD ALIGN="center" >stove</TD><TD ALIGN="center" >3.11</TD><TD ALIGN="center" >0.9495</TD></TR>
+<TR><TD ALIGN="center" >6</TD><TD ALIGN="center" >bird</TD><TD ALIGN="center" >cock</TD><TD ALIGN="center" >3.05</TD><TD ALIGN="center" >0.8235</TD></TR>
+<TR><TD ALIGN="center" >7</TD><TD ALIGN="center" >boy</TD><TD ALIGN="center" >lad</TD><TD ALIGN="center" >3.76</TD><TD ALIGN="center" >0.8000</TD></TR>
+<TR><TD ALIGN="center" >8</TD><TD ALIGN="center" >asylum</TD><TD ALIGN="center" >madhouse</TD><TD ALIGN="center" >3.61</TD><TD ALIGN="center" >0.8000</TD></TR>
+<TR><TD ALIGN="center" >9</TD><TD ALIGN="center" >coast</TD><TD ALIGN="center" >shore</TD><TD ALIGN="center" >3.7</TD><TD ALIGN="center" >0.8000</TD></TR>
+<TR><TD ALIGN="center" >10</TD><TD ALIGN="center" >journey</TD><TD ALIGN="center" >voyage</TD><TD ALIGN="center" >3.84</TD><TD ALIGN="center" >0.8000</TD></TR>
+<TR><TD ALIGN="center" >11</TD><TD ALIGN="center" >food</TD><TD ALIGN="center" >fruit</TD><TD ALIGN="center" >3.08</TD><TD ALIGN="center" >0.6814</TD></TR>
+<TR><TD ALIGN="center" >12</TD><TD ALIGN="center" >tool</TD><TD ALIGN="center" >implement</TD><TD ALIGN="center" >2.95</TD><TD ALIGN="center" >0.6707</TD></TR>
+<TR><TD ALIGN="center" >13</TD><TD ALIGN="center" >bird</TD><TD ALIGN="center" >crane</TD><TD ALIGN="center" >2.97</TD><TD ALIGN="center" >0.5642</TD></TR>
+<TR><TD ALIGN="center" >14</TD><TD ALIGN="center" >lobster</TD><TD ALIGN="center" >food</TD><TD ALIGN="center" >0.89</TD><TD ALIGN="center" >0.5247</TD></TR>
+<TR><TD ALIGN="center" >15</TD><TD ALIGN="center" >brother</TD><TD ALIGN="center" >monk</TD><TD ALIGN="center" >2.82</TD><TD ALIGN="center" >0.2774</TD></TR>
+<TR><TD ALIGN="center" >16</TD><TD ALIGN="center" >crane</TD><TD ALIGN="center" >implement</TD><TD ALIGN="center" >1.68</TD><TD ALIGN="center" >0.2491</TD></TR>
+<TR><TD ALIGN="center" >17</TD><TD ALIGN="center" >forest</TD><TD ALIGN="center" >graveyard</TD><TD ALIGN="center" >0.84</TD><TD ALIGN="center" >0.0706</TD></TR>
+<TR><TD ALIGN="center" >18</TD><TD ALIGN="center" >coast</TD><TD ALIGN="center" >hill</TD><TD ALIGN="center" >0.87</TD><TD ALIGN="center" >0.0572</TD></TR>
+<TR><TD ALIGN="center" >19</TD><TD ALIGN="center" >lad</TD><TD ALIGN="center" >brother</TD><TD ALIGN="center" >1.66</TD><TD ALIGN="center" >0.0169</TD></TR>
+<TR><TD ALIGN="center" >20</TD><TD ALIGN="center" >monk</TD><TD ALIGN="center" >oracle</TD><TD ALIGN="center" >1.1</TD><TD ALIGN="center" >0.0017</TD></TR>
+<TR><TD ALIGN="center" >21</TD><TD ALIGN="center" >journey</TD><TD ALIGN="center" >car</TD><TD ALIGN="center" >1.16</TD><TD ALIGN="center" >0.0014</TD></TR>
+<TR><TD ALIGN="center" >22</TD><TD ALIGN="center" >monk</TD><TD ALIGN="center" >slave</TD><TD ALIGN="center" >0.55</TD><TD ALIGN="center" >0.0000</TD></TR>
+<TR><TD ALIGN="center" >23</TD><TD ALIGN="center" >chord</TD><TD ALIGN="center" >smile</TD><TD ALIGN="center" >0.13</TD><TD ALIGN="center" >0.0000</TD></TR>
+<TR><TD ALIGN="center" >24</TD><TD ALIGN="center" >coast</TD><TD ALIGN="center" >forest</TD><TD ALIGN="center" >0.42</TD><TD ALIGN="center" >0.0000</TD></TR>
+<TR><TD ALIGN="center" >25</TD><TD ALIGN="center" >glass</TD><TD ALIGN="center" >magician</TD><TD ALIGN="center" >0.11</TD><TD ALIGN="center" >0.0000</TD></TR>
+<TR><TD ALIGN="center" >26</TD><TD ALIGN="center" >noon</TD><TD ALIGN="center" >string</TD><TD ALIGN="center" >0.08</TD><TD ALIGN="center" >0.0000</TD></TR>
+<TR><TD ALIGN="center" >27</TD><TD ALIGN="center" >rooster</TD><TD ALIGN="center" >voyage</TD><TD ALIGN="center" >0.08</TD><TD ALIGN="center" >0.0000</TD></TR>
+<TR><TD ALIGN="center" >28</TD><TD ALIGN="center" >lad</TD><TD ALIGN="center" >wizard</TD><TD ALIGN="center" >0.42</TD><TD ALIGN="center" >0.0000</TD></TR>
+</TBODY></TABLE></P>
  </BODY></HTML>
  
 
