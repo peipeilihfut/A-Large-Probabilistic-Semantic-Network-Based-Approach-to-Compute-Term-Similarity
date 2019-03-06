@@ -144,7 +144,7 @@ Approach to Compute Term Similarity" target=_new onClick="stc(this, 26)"> Comple
 </div>
         <div class="conM "><H2>Contact</H2>
 <P>Peipei Li(peipeili@hfut.edu.cn): Hefei University of Technology<BR><A style="ZOOM: 1" title="" href="/en-us/people/haixunw/" target=_new alt onClick="stc(this, 30)">Haixun Wang</A> (haixunw@gmail.com): Microsoft Research Asia<BR><A style="ZOOM: 1" title="" href="http://www.cs.sjtu.edu.cn/~kzhu/" target=_new alt onClick="stc(this, 29)">Kenny Q. Zhu</A> (kzhu@cs.sjtu.edu.cn): Shanghai Jiao Tong University<BR><A href="/en-us/people/zhowang/" target=_new onClick="stc(this, 28)">Zhongyuan Wang</A> (zhy.wang@microsoft.com): Microsoft Research Asia<BR><A style="ZOOM: 1" title="" href="http://www.cs.uvm.edu/~xwu/home.html" target=_new alt onClick="stc(this, 30)">Xindong Wu</A> (xwu@louisiana.edu ): University of Louisiana at Lafayette</P>
-<H2>Please refer to the references for more details.</H2>
+<H2>Please refer to our published papers for more details.</H2>
 <P>Peipei Li, Hunxun Wang, Kenny Q. Zhu, Zhongyuan Wang, and Xindong Wu. Computing Term Similarity by Large Probabilistic isA Knowledge. In: Proceedings of 22nd ACM International Conference on Information and Knowledge Management (CIKM’13), pp. 1401-1410, 2013.</P>
 <P>Peipei Li*, HaixunWang, Kenny Q. Zhu,Zhongyuan Wang, Xuegang Hu, and Xindong Wu. A Large Probabilistic Semantic Network based Approach to Compute Term Similarity. IEEE Transactions on Knowledge and Data Engineering, 27(10): 2604-2617, 2015.</P>
 </BODY></HTML>
