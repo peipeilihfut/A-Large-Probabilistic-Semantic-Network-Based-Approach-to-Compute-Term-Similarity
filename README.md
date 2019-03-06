@@ -5,7 +5,8 @@
 <DIV class="zone" id="mainZone">
 <DIV class="compositeModule_1Zone ">
 <DIV class="zone">
-<DIV class="title deM"><B>Concept based Short Text Stream Classification with Topic Drifting Detection</B>
+<DIV class="title deM"><B>A Large Probabilistic Semantic Network Based
+Approach to Compute Term Similarity</B>
 <DIV class="cl"></DIV></DIV>
 <DIV class="conM ">
 <P>&nbsp;</P>
