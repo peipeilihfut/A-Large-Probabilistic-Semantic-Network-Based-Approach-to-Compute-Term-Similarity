@@ -133,7 +133,7 @@ with the computed similarity scores by the RCP approach. Due to the space limit,
 </TBODY></TABLE></P>
 	 <div style="clear:both;"></div>
         <div class="conM "><H2>Complete Set of Results: Download</H2>
-<P>Refer to <A href="https://github.com/peipeilihfut/Term-Similarity-based-on-Semantic-Network-Probase-/blob/master/SimCompleteResults.pdf" target=_new onClick="stc(this, 26)"> for More Details. Complete Results on Three Data Sets</A>.</P></div>
+<P>For More Details Refer to <A href="https://github.com/peipeilihfut/Term-Similarity-based-on-Semantic-Network-Probase-/blob/master/SimCompleteResults.pdf" target=_new onClick="stc(this, 26)">Complete Results on Three Data Sets</A>.</P></div>
         <div style="clear:both;"></div>
 <div class="conM "><H2>References</H2>
 <P>[1] A. Budanitsky and G. Hirst. Evaluating wordnet-based measures of lexical semantic relatedness. Computational Linguistics, 32:13-47,2006.</P>
